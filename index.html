@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tracker Test Client</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <button id="track">Track me</button>
+    <hr />
+    <button id="load">Load me</button>
+    <script>
+      $(document).ready(function () {
+        $('button#track').click(function () {
+          const uuid = 'uuid-' + Math.random();
+          const gid = 'gid-' + Math.random();
+          console.log(`Sending ${uuid}, ${gid}`);
+          $.ajax({
+            url:
+              'https://2q7f9rjffl.execute-api.eu-west-1.amazonaws.com/dev/track',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            method: 'POST',
+            data: { uuid, gid },
+            success: function (response) {
+              console.log(response);
+            },
+            error: function (error) {
+              console.log(error);
+            },
+          });
+        });
+
+        $('button#load').click(function () {
+          const uuid = 'uuid-' + Math.random();
+          const gid = 'gid-' + Math.random();
+          console.log(`Sending ${uuid}, ${gid}`);
+          $.ajax({
+            url:
+              'https://r5fzj18zk6.execute-api.eu-west-1.amazonaws.com/dev/analytics',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            method: 'POST',
+            data: { uuid, gid },
+            success: function (response) {
+              console.log(response);
+            },
+            error: function (error) {
+              console.log(error);
+            },
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
